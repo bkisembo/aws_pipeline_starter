@@ -1,0 +1,9 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo "Hello world from buildspec.yml"
+artifacts:
+files:
+  - Dockerfile      
