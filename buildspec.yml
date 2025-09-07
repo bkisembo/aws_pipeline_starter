@@ -6,10 +6,22 @@ env:
     SECRET_PASSWORD: "pipeline-docker-credentials:password"
 
 phases:
+
+  pre_build:
+    commands:
+      - echo "logging into DockerHub..."
+      - echo "$SECRET_PASSWORD" | docker login -u "$SECRET_USERNAME" --password-stdin
+
   build:
     commands:
-      - echo "Hello world from buildspec.yml"
-      - echo "$SECRET_USERNAME"
+      - echo "Building Docker image"
+      - docker build -t bkisembo/pottery-db:latest .
+
+  post_build:
+    commands:
+      - echo "Pushing the Docker image..."
+      - docker push bkisembo/pottery-db:latest
+      - echo "Docker image pushed successfully"    
 
 artifacts:
   files:
