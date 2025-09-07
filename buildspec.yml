@@ -1,9 +1,16 @@
 version: 0.2
 
+env:
+  secrets-manager:
+    SECRET_USERNAME: "pipeline-docker-credentials:username",
+    SECRET_PASSWORD: "pipeline-docker-credentials:password"
+
 phases:
   build:
     commands:
       - echo "Hello world from buildspec.yml"
+      - echo "$SECRET_USERNAME"
+
 artifacts:
   files:
     - Dockerfile      
